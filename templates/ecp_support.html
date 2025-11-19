@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="form" method="post">
+    <p class="hint">
+        Здесь можно записаться на услугу по сопровождению подготовки заявления на выпуск ЭЦП.
+        Укажите удобные дату и время, и специалист свяжется с вами для подтверждения.
+    </p>
+
+    <label class="form-field">
+        <span>ФИО полностью*</span>
+        <input name="full_name" required placeholder="Иванов Иван Иванович">
+    </label>
+
+    <label class="form-field">
+        <span>Статус</span>
+        <select name="role">
+            <option value="">Не выбрано</option>
+            {% for r in roles %}
+                <option>{{ r }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <label class="form-field">
+        <span>Тип ЭЦП / цель обращения</span>
+        <select name="ecp_type">
+            <option value="">Выберите вариант</option>
+            {% for t in ecp_types %}
+                <option>{{ t }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <label class="form-field">
+        <span>Место обслуживания</span>
+        <select name="office">
+            {% for o in offices %}
+                <option>{{ o }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <div class="form-row">
+        <label class="form-field">
+            <span>Желаемая дата визита*</span>
+            <input type="date" name="preferred_date" required>
+        </label>
+
+        <label class="form-field">
+            <span>Интервал времени*</span>
+            <select name="time_slot" required>
+                <option value="">Выберите интервал</option>
+                {% for slot in time_slots %}
+                    <option>{{ slot }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+
+    <label class="form-field">
+        <span>Телефон для связи*</span>
+        <input type="tel" name="phone" required placeholder="+7…">
+    </label>
+
+    <label class="form-field">
+        <span>E-mail</span>
+        <input type="email" name="email" placeholder="name@example.com">
+    </label>
+
+    <div class="form-row">
+        <label class="form-field">
+            <span>Последние 4 цифры паспорта</span>
+            <input name="passport_last4" maxlength="4" placeholder="1234">
+        </label>
+
+        <label class="form-field">
+            <span>СНИЛС (без пробелов)</span>
+            <input name="snils" placeholder="12345678901">
+        </label>
+    </div>
+
+    <label class="form-field">
+        <span>Комментарий</span>
+        <textarea name="comment" rows="3"
+                  placeholder="Например: нужна помощь с подачей заявления на ЭЦП для Госуслуг, есть ли свободное время в более ранние сроки и т.п."></textarea>
+    </label>
+
+    <button class="primary-btn" type="submit">Записаться</button>
+</form>
+{% endblock %}

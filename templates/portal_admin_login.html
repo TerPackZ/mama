@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="form" method="post">
+    <p class="hint">Доступ только для администратора портала.</p>
+    <label class="form-field">
+        <span>Пароль администратора</span>
+        <input type="password" name="password" required>
+    </label>
+    <button class="primary-btn" type="submit">Войти</button>
+</form>
+{% endblock %}

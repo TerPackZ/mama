@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+{% if not requests_list %}
+    <p class="hint">Заявок на мультимедийное сопровождение пока нет.</p>
+{% else %}
+    <ul class="card-list">
+        {% for r in requests_list %}
+            {% set id, created_at,
+                     full_name, role, event_title, event_type,
+                     audience_type, event_date, start_time, end_time,
+                     location, expected_participants,
+                     multimedia_needs, needs_recording, needs_streaming,
+                     email, phone, comment = r %}
+
+            <li class="card">
+                <div class="card-header">
+                    <span class="card-title">#{{ id }} — {{ event_title }}</span>
+                    <span class="badge badge-waiting">Мероприятие</span>
+                </div>
+
+                <div class="card-meta">
+                    <span>{{ created_at }}</span>
+                    {% if full_name %}<span> · {{ full_name }}</span>{% endif %}
+                    {% if role %}<span> · {{ role }}</span>{% endif %}
+                </div>
+
+                <div class="card-body">
+                    {% if event_type %}
+                        <div class="card-line"><strong>Тип мероприятия:</strong> {{ event_type }}</div>
+                    {% endif %}
+                    {% if audience_type %}
+                        <div class="card-line"><strong>Аудитория:</strong> {{ audience_type }}</div>
+                    {% endif %}
+
+                    <div class="card-line">
+                        <strong>Дата и время:</strong>
+                        {{ event_date or "—" }}
+                        {% if start_time %} · {{ start_time }}{% endif %}
+                        {% if end_time %} — {{ end_time }}{% endif %}
+                    </div>
+
+                    {% if location %}
+                        <div class="card-line"><strong>Место проведения:</strong> {{ location }}</div>
+                    {% endif %}
+                    {% if expected_participants %}
+                        <div class="card-line"><strong>Участников:</strong> {{ expected_participants }}</div>
+                    {% endif %}
+
+                    {% if multimedia_needs %}
+                        <div class="card-line"><strong>Оснащение:</strong> {{ multimedia_needs }}</div>
+                    {% endif %}
+                    {% if needs_recording %}
+                        <div class="card-line"><strong>Запись мероприятия:</strong> {{ needs_recording }}</div>
+                    {% endif %}
+                    {% if needs_streaming %}
+                        <div class="card-line"><strong>Онлайн-трансляция:</strong> {{ needs_streaming }}</div>
+                    {% endif %}
+
+                    {% if phone %}
+                        <div class="card-line"><strong>Телефон:</strong> {{ phone }}</div>
+                    {% endif %}
+                    {% if email %}
+                        <div class="card-line"><strong>E-mail:</strong> {{ email }}</div>
+                    {% endif %}
+                    {% if comment %}
+                        <div class="card-line"><strong>Комментарий:</strong> {{ comment }}</div>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

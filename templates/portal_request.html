@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="form" method="post">
+    <label class="form-field">
+        <span>ФИО полностью*</span>
+        <input name="full_name" required placeholder="Иванов Иван Иванович">
+    </label>
+
+    <label class="form-field">
+        <span>Факультет / институт</span>
+        <select name="faculty">
+            <option value="">Выберите факультет</option>
+            <option>Факультет информатики</option>
+            <option>Экономический факультет</option>
+            <option>Юридический факультет</option>
+            <option>Гуманитарный факультет</option>
+            <option>Другое</option>
+        </select>
+    </label>
+
+    <label class="form-field">
+        <span>Раздел портала</span>
+        <select name="portal_section">
+            <option value="">Выберите раздел</option>
+            <option>Личный кабинет студента</option>
+            <option>Успеваемость / ведомости</option>
+            <option>Расписание</option>
+            <option>Практика / практика</option>
+            <option>Стипендии и выплаты</option>
+            <option>Другое</option>
+        </select>
+    </label>
+
+    <label class="form-field">
+        <span>Тип проблемы</span>
+        <select name="issue_type">
+            <option>Не могу войти</option>
+            <option>Ошибка данных</option>
+            <option>Не отображаются разделы</option>
+            <option>Тех. ошибка / баг</option>
+            <option>Предложение по улучшению</option>
+        </select>
+    </label>
+
+    <label class="form-field">
+        <span>Электронная почта</span>
+        <input type="email" name="email" placeholder="name@example.com">
+    </label>
+
+    <label class="form-field">
+        <span>Телефон</span>
+        <input type="tel" name="phone" placeholder="+7…">
+    </label>
+
+    <label class="form-field">
+        <span>Описание проблемы*</span>
+        <textarea name="description" rows="4" required
+                  placeholder="Опишите, что именно не работает, какие сообщения об ошибке видите…"></textarea>
+    </label>
+
+    <button class="primary-btn" type="submit">Отправить заявку</button>
+</form>
+{% endblock %}

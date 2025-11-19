@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="form" method="post">
+    <label class="form-field">
+        <span>Тип справки*</span>
+        <select name="cert_type" required>
+            <option value="">Выберите тип</option>
+            {% for t in certificate_types %}
+                <option>{{ t }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <label class="form-field">
+        <span>ФИО полностью*</span>
+        <input name="full_name" required placeholder="Иванов Иван Иванович">
+    </label>
+
+    <label class="form-field">
+        <span>Дата рождения</span>
+        <input type="date" name="birth_date">
+    </label>
+
+    <label class="form-field">
+        <span>Номер студенческого билета</span>
+        <input name="student_id" placeholder="например, 23Б-12345">
+    </label>
+
+    <label class="form-field">
+        <span>Факультет / институт*</span>
+        <select name="faculty" required>
+            <option value="">Выберите факультет</option>
+            <option>Факультет информатики</option>
+            <option>Экономический факультет</option>
+            <option>Юридический факультет</option>
+            <option>Гуманитарный факультет</option>
+            <option>Инженерный институт</option>
+            <option>Другое</option>
+        </select>
+    </label>
+
+    <label class="form-field">
+        <span>Направление / специальность</span>
+        <input name="program" placeholder="Например, 09.03.01 Информатика и вычислительная техника">
+    </label>
+
+    <div class="form-row">
+        <label class="form-field">
+            <span>Курс*</span>
+            <select name="course" required>
+                <option value="">—</option>
+                {% for c in courses %}
+                    <option>{{ c }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label class="form-field">
+            <span>Форма обучения</span>
+            <select name="form_of_study">
+                <option value="">—</option>
+                {% for f in forms_of_study %}
+                    <option>{{ f }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+
+    <label class="form-field">
+        <span>Основание обучения</span>
+        <select name="funding">
+            <option value="">—</option>
+            {% for f in funding_types %}
+                <option>{{ f }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <div class="form-row">
+        <label class="form-field">
+            <span>Период обучения с</span>
+            <input type="date" name="period_from">
+        </label>
+        <label class="form-field">
+            <span>по</span>
+            <input type="date" name="period_to">
+        </label>
+    </div>
+
+    <label class="form-field">
+        <span>Язык справки</span>
+        <select name="language">
+            {% for l in languages %}
+                <option>{{ l }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <label class="form-field">
+        <span>Способ получения</span>
+        <select name="pickup_method">
+            {% for m in pickup_methods %}
+                <option>{{ m }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <label class="form-field">
+        <span>Электронная почта</span>
+        <input type="email" name="email" placeholder="name@example.com">
+    </label>
+
+    <label class="form-field">
+        <span>Телефон</span>
+        <input type="tel" name="phone" placeholder="+7…">
+    </label>
+
+    <label class="form-field">
+        <span>Комментарий (для кого справка, дополнительные данные)</span>
+        <textarea name="comment" rows="3"
+                  placeholder="Например: для предоставления в военкомат / соцзащиту; нужен оригинал или скан…"></textarea>
+    </label>
+
+    <button class="primary-btn" type="submit">Отправить заявку</button>
+</form>
+{% endblock %}

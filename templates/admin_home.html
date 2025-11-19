@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<p class="hint">
+    Выберите раздел, чтобы просмотреть заявки.
+</p>
+
+<div class="menu-grid">
+    <!-- 1. Первый раздел — заявки на портал (уже реализованы) -->
+    <a class="menu-btn" href="{{ url_for('portal_admin_list') }}">
+        Заявки на портал
+    </a>
+
+    <a class="menu-btn" href="{{ url_for('admin_cert_requests') }}">
+        Заявки на справки
+    </a>
+
+    <a class="menu-btn" href="{{ url_for('admin_ecp_requests') }}">
+        Запись на ЭЦП
+    </a>
+
+    <a class="menu-btn" href="{{ url_for('admin_event_requests') }}">
+        Мероприятия с мультимедиа
+    </a>
+</div>
+{% endblock %}

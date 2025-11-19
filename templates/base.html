@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/css/intlTelInput.css" />
+
+<style>
+    .iti { width: 100%; }
+    .iti__selected-country-primary { background: #fff !important; }
+</style>    
+<head>
+    <meta charset="utf-8">
+    <title>{{ title or "Мини-приложение" }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <!-- MAX Bridge -->
+    <script src="https://st.max.ru/js/max-web-app.js"></script>
+</head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/js/intlTelInput.min.js"></script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+<body>
+<div class="app">
+    <header class="app-header">
+        {% if show_back %}
+            <button
+                type="button"
+                class="back-btn"
+                onclick="
+                    if (window.history.length > 1) {
+                        window.history.back();
+                    } else {
+                        window.location.href='{{ url_for('index') }}';
+                    }
+                "
+            >←</button>
+        {% endif %}
+        <h1 class="app-title">{{ header or 'Сервис' }}</h1>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main class="app-content">
+        {% block content %}{% endblock %}
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

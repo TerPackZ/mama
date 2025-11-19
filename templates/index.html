@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="menu-grid">
+    <a class="menu-btn" href="{{ url_for('portal_request') }}">
+        Заявка на портал
+    </a>
+
+    <a class="menu-btn" href="{{ url_for('student_certificate') }}">
+        Заказ справок студентам
+    </a>
+
+    <a class="menu-btn" href="{{ url_for('ecp_support') }}">
+        Запись на услугу ЭЦП
+    </a>
+
+    <a class="menu-btn" href="{{ url_for('event_multimedia') }}">
+        Заявка на мероприятие (мультимедиа)
+    </a>
+    <a class="menu-btn" href="{{ url_for('admin_login') }}">
+        Админ-панель
+    </a>
+</div>
+{% endblock %}

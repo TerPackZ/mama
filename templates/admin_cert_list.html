@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+{% if not requests_list %}
+    <p class="hint">Заявок на справки пока нет.</p>
+{% else %}
+    <ul class="card-list">
+        {% for r in requests_list %}
+            {% set id, created_at, cert_type, full_name, birth_date,
+                     student_id, faculty, program, course,
+                     form_of_study, funding, period_from, period_to,
+                     language, pickup_method, email, phone, comment = r %}
+
+            <li class="card">
+                <div class="card-header">
+                    <span class="card-title">#{{ id }} — {{ full_name }}</span>
+                    <span class="badge badge-waiting">{{ cert_type or 'Справка' }}</span>
+                </div>
+
+                <div class="card-meta">
+                    <span>{{ created_at }}</span>
+                    {% if faculty %}<span> · {{ faculty }}</span>{% endif %}
+                    {% if course %}<span> · {{ course }} курс</span>{% endif %}
+                </div>
+
+                <div class="card-body">
+                    {% if birth_date %}
+                        <div class="card-line"><strong>Дата рождения:</strong> {{ birth_date }}</div>
+                    {% endif %}
+                    {% if student_id %}
+                        <div class="card-line"><strong>Студ. билет:</strong> {{ student_id }}</div>
+                    {% endif %}
+                    {% if program %}
+                        <div class="card-line"><strong>Направление:</strong> {{ program }}</div>
+                    {% endif %}
+                    {% if form_of_study %}
+                        <div class="card-line"><strong>Форма обучения:</strong> {{ form_of_study }}</div>
+                    {% endif %}
+                    {% if funding %}
+                        <div class="card-line"><strong>Основание:</strong> {{ funding }}</div>
+                    {% endif %}
+                    {% if period_from or period_to %}
+                        <div class="card-line">
+                            <strong>Период обучения:</strong>
+                            {{ period_from or "?" }} — {{ period_to or "?" }}
+                        </div>
+                    {% endif %}
+                    {% if language %}
+                        <div class="card-line"><strong>Язык справки:</strong> {{ language }}</div>
+                    {% endif %}
+                    {% if pickup_method %}
+                        <div class="card-line"><strong>Способ получения:</strong> {{ pickup_method }}</div>
+                    {% endif %}
+                    {% if email %}
+                        <div class="card-line"><strong>E-mail:</strong> {{ email }}</div>
+                    {% endif %}
+                    {% if phone %}
+                        <div class="card-line"><strong>Телефон:</strong> {{ phone }}</div>
+                    {% endif %}
+                    {% if comment %}
+                        <div class="card-line"><strong>Комментарий:</strong> {{ comment }}</div>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

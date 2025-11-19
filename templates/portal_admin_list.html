@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+{% if not requests_list %}
+    <p class="hint">Заявок пока нет.</p>
+{% else %}
+    <ul class="card-list">
+        {% for r in requests_list %}
+            {% set id, created_at, full_name, email, phone,
+                     faculty, portal_section, issue_type, description, status = r %}
+
+            {# Приводим статус к удобным надписям #}
+            {% set status_map = {
+                'new': 'ожидает',
+                'ожидает': 'ожидает',
+                'в процессе': 'в процессе',
+                'выполнено': 'выполнено'
+            } %}
+            {% set status_label = status_map.get(status, status or 'ожидает') %}
+
+            {# Класс цвета бейджа #}
+            {% set badge_class =
+                'badge-waiting' if status_label == 'ожидает' else
+                'badge-progress' if status_label == 'в процессе' else
+                'badge-done'
+            %}
+
+            <li class="card">
+                <div class="card-header">
+                    <span class="card-title">#{{ id }} — {{ full_name }}</span>
+                    <span class="badge {{ badge_class }}">{{ status_label }}</span>
+                </div>
+
+                <div class="card-meta">
+                    <span>{{ created_at }}</span>
+                    {% if faculty %}<span> · {{ faculty }}</span>{% endif %}
+                </div>
+
+                <div class="card-body">
+                    {% if portal_section %}
+                        <div class="card-line"><strong>Раздел:</strong> {{ portal_section }}</div>
+                    {% endif %}
+
+                    {% if issue_type %}
+                        <div class="card-line"><strong>Тип:</strong> {{ issue_type }}</div>
+                    {% endif %}
+
+                    <div class="card-line"><strong>Описание:</strong> {{ description }}</div>
+
+                    {% if email %}
+                        <div class="card-line"><strong>E-mail:</strong> {{ email }}</div>
+                    {% endif %}
+                    {% if phone %}
+                        <div class="card-line"><strong>Телефон:</strong> {{ phone }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="card-footer">
+
+                    {# Форма изменения статуса #}
+                    <form class="inline-form"
+                          method="post"
+                          action="{{ url_for('portal_admin_update_status', req_id=id) }}">
+                        <label>
+                            <span class="inline-label">Статус:</span>
+                            <select name="status">
+                                <option value="ожидает"
+                                    {% if status_label == 'ожидает' %}selected{% endif %}>
+                                    Ожидает
+                                </option>
+                                <option value="в процессе"
+                                    {% if status_label == 'в процессе' %}selected{% endif %}>
+                                    В процессе
+                                </option>
+                                <option value="выполнено"
+                                    {% if status_label == 'выполнено' %}selected{% endif %}>
+                                    Выполнено
+                                </option>
+                            </select>
+                        </label>
+                        <button type="submit" class="secondary-btn">Сохранить</button>
+                    </form>
+
+                    {# Форма удаления #}
+                    <form class="inline-form"
+                          method="post"
+                          action="{{ url_for('portal_admin_delete', req_id=id) }}"
+                          onsubmit="return confirm('Удалить заявку #{{ id }}?');">
+                        <button type="submit" class="danger-btn">Удалить</button>
+                    </form>
+
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
